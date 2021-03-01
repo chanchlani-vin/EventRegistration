@@ -1,0 +1,78 @@
+<apex:page standardController="Event__c" lightningStylesheets="true" recordSetVar="events">
+  
+  <apex:form id="form">
+      <apex:pageMessages />
+      
+      <apex:pageBlock >
+          <apex:panelGrid columns="2">
+              <apex:outputLabel value="Filter : "></apex:outputLabel>
+              <apex:selectList value="{!filterId}" size="1">
+                  <apex:actionSupport event="onchange" reRender="records" status="loading"/>
+                  <apex:selectOptions value="{!listViewOptions}"></apex:selectOptions>
+              </apex:selectList>
+          </apex:panelGrid>
+          <br/><br/>
+          
+          <h2> Events </h2>
+          
+          <apex:actionStatus id="loading">
+               <apex:facet name="start" >
+                  <img src="/img/loading.gif" />                    
+                </apex:facet>
+                
+                <apex:facet name="stop">
+                               
+                    <apex:outputPanel id="records" > 
+                            
+                           
+                            <table style="width: 100%">
+                            <tr>
+                                <td>
+                                   {!$Label.Page}: <apex:outputText value="{!PageNumber} of {!CEILING(ResultSize/PageSize)}"></apex:outputText>
+                                </td>
+                                <td align="center">
+                                    
+                                    <apex:commandLink action="{! Previous }" value="« {!$Label.Previous}" rendered="{! HasPrevious }"/>
+                                    <apex:outputText style="color: #ccc;" value="« {!$Label.Previous}" rendered="{! NOT(HasPrevious) }"/>
+                                    
+                                    &nbsp;&nbsp;
+                                    
+                                    <apex:commandLink action="{! Next }" value="« {!$Label.Next}" rendered="{! HasNext }"/>
+                                    <apex:outputText style="color: #ccc;" value="« {!$Label.Next}" rendered="{! NOT(HasNext) }"/>
+                                    
+                                </td>
+                                <td align="right">
+                                    {!$Label.Records_Per_Page}&nbsp;
+                                    <apex:selectList value="{! PageSize }" size="1">
+                                        <apex:selectOption itemValue="5" itemLabel="5"/>
+                                        <apex:selectOption itemValue="20" itemLabel="20"/>
+                                        <apex:actionSupport event="onchange" reRender="records" status="loading"/>
+                                    </apex:selectList>
+                                </td>
+                            </tr></table> 
+                                           
+                          <apex:repeat value="{!events}" var="event" rendered="{!events != null}">
+                              <div>
+                                  <apex:outputPanel rendered="{!event.Image_URL__c!=null}">
+                                      <img src="{!event.image_url__c}" alt="{!event.name}" height="300px" width="650px"/>
+                                  </apex:outputPanel>
+                                  <div style="font-weight:bold;color:red;">{!event.start_date__c}</div>
+                                  <div style="font-weight:bold;font-size:18px;">
+                                      <a href="{!$Site.BaseUrl}/apex/event?id={!event.id}" target="_blank">{!event.name}</a>
+                                  </div>                                    
+                                  <br/>
+                                  <div style="text-align: center;background:red;width:70px;">
+                                      <a href="{!$Site.BaseUrl}/apex/event?id={!event.id}" style="color:white" target="_blank" >REGISTER</a>
+                                  </div>
+                                  
+                                  <hr/>
+                              </div>
+                          </apex:repeat>
+                          <apex:outputText rendered="{!events == null}" value="{!$Label.No_Records}"> </apex:outputText>
+                      </apex:outputPanel>
+                </apex:facet>
+          </apex:actionStatus>
+      </apex:pageBlock>
+  </apex:form>
+  
+</apex:page>

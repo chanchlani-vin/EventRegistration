@@ -1,0 +1,47 @@
+<apex:page StandardController="Event__c" extensions="EventControllerExtension" lightningStylesheets="true">
+<br/>
+    <a href="{!$Site.BaseUrl}/apex/events" target="_blank" >Back to Events</a>
+  <h2>{!Event__c.Name}</h2>
+  <apex:panelGrid columns="2">
+      <apex:outputPanel rendered="{!Event__c.Image_URL__c!=null}">
+          <img src="{!Event__c.Image_URL__c}"/>
+      </apex:outputPanel>
+      <apex:outputPanel >
+          <div style="font-size:16px;font-weight:bold;"><span style="color:red;">Starts at:</span> {!Event__c.Start_Date__c}</div>
+          <br/>
+          <div style="font-size:16px;font-weight:bold;"><span style="color:red;">Ends at: </span>{!Event__c.End_Date__c}</div>
+          
+          <apex:form id="registerForm">
+              <apex:pagemessages ></apex:pagemessages>
+              <apex:pageBlock rendered="{!IsRegistrationAllowed && registrationMessage==null}">
+                  <apex:pageBlockSection >
+                      <apex:outputLabel value="First Name"></apex:outputLabel><apex:inputText value="{!firstName}" required="true"/>
+                      <apex:outputLabel value="Last Name"></apex:outputLabel><apex:inputText value="{!lastName}" required="true"/>
+                      <apex:outputLabel value="Email"></apex:outputLabel><apex:inputText value="{!email}" required="true"/>
+                  </apex:pageBlockSection>
+                  <apex:pageBlockButtons location="bottom">
+                      <apex:commandButton value="Register" reRender="registerForm" action="{!register}"/>
+                  </apex:pageBlockButtons>
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!!IsRegistrationAllowed&& registrationMessage==null}">
+                  <apex:pageBlockSection >
+                      <apex:outputText value="{!$Label.Registration_Closed}"></apex:outputText>
+                  </apex:pageBlockSection>                  
+              </apex:pageBlock>
+              <apex:pageBlock rendered="{!registrationMessage!=null}">
+                  <apex:pageBlockSection >
+                      <apex:outputText value="{!registrationMessage}" style="color:red;"></apex:outputText>
+                  </apex:pageBlockSection>                  
+              </apex:pageBlock>
+              
+          </apex:form>
+          
+      </apex:outputPanel>      
+  </apex:panelGrid>
+  
+  <apex:outputPanel >
+      <h1>Event Details : </h1>
+      <apex:outputText value="{!Event__c.Details__c}" escape="false"></apex:outputText>
+  </apex:outputPanel>
+  
+</apex:page>
