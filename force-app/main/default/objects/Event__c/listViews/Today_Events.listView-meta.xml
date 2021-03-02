@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Today_Events</fullName>
+    <columns>OBJECT_ID</columns>
     <columns>NAME</columns>
+    <columns>Start_Date__c</columns>
+    <columns>End_Date__c</columns>
+    <columns>Number_of_participants_allowed__c</columns>
+    <columns>Number_of_registrations__c</columns>
     <filterScope>Mine</filterScope>
     <filters>
         <field>Start_Date__c</field>

@@ -42,6 +42,20 @@
         <shortDescription>Registration Closed</shortDescription>
         <value>Registrations are closed for this event.</value>
     </labels>
+    <labels>
+        <fullName>RegistrationSuccess</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Registration Success</shortDescription>
+        <value>You are successfully registered for this event.</value>
+    </labels>
+    <labels>
+        <fullName>Already_Registered</fullName>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Already_Registered</shortDescription>
+        <value>You are already registered for this event.</value>
+    </labels>
 	<labels>
         <fullName>fflib_QueryFactory_crossobject_fieldsets_not_allowed_error</fullName>
         <language>en_US</language>
